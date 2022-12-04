@@ -48,13 +48,13 @@ body.dark {
 body.dark .container {
   background: var(--color-grey-darker);
 }
-#beziers {
+/* #beziers {
   box-shadow: 0 0 100px -50px rgb(0, 0, 0), inset 0 0 0 1px black;
   margin: 0;
   padding: 0;
   position: absolute;
   backdrop-filter: blur(2px);
-}
+} */
 
 h1 {
   padding: 25px;
@@ -87,20 +87,6 @@ h1 {
   border-radius: 250px;
   backdrop-filter: blur(2px);
   flex-wrap: wrap;
-}
-
-/* .switch {
-  position: relative;
-  display: inline-block;
-  width: 80px;
-  height: 34px;
-  border-radius: 500px;
-  background: black;
-  margin: 5px;
-} */
-
-input:checked .switch {
-  background: yellow;
 }
 
 button {

@@ -210,8 +210,8 @@ function handleRightClick(e) {
 
 function handleResize() {
   if (canvas.width != document.body.clientWidth) {
-    canvas.height = document.body.clientHeight * 0.8;
-    canvas.width = document.body.clientWidth * 0.95;
+    canvas.height = document.body.clientHeight;
+    canvas.width = document.body.clientWidth;
     rect = canvas.getBoundingClientRect();
   }
   draw();
@@ -253,15 +253,15 @@ window.addEventListener(
     console.log(t);
     if (canvas && canvas.getContext) {
       ctx = canvas.getContext("2d");
-      canvas.height = document.body.clientHeight * 0.8;
-      canvas.width = document.body.clientWidth * 0.95;
+      canvas.height = document.body.clientHeight;
+      canvas.width = document.body.clientWidth;
       rect = canvas.getBoundingClientRect();
       // interval = setInterval(drawRandomBezier, speed);
       autoplay = document.getElementById("autoplay").value;
       if (autoplay) {
         interval = setInterval(drawRandomBezier, speed);
       }
-      canvas.addEventListener("contextmenu", (e) => {
+      document.addEventListener("contextmenu", (e) => {
         handleRightClick(e), true;
       });
       canvas.addEventListener("mousedown", (e) => {
