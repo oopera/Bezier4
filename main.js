@@ -17,8 +17,9 @@ var hasMoved = 0;
 var rect;
 var selectedPoint = false;
 var speed = document.getElementById("speed").value;
+var autoplay = document.getElementById("autoplay").value;
 var interval;
-var autoplay;
+
 var guides = true;
 var aop = 25;
 
@@ -210,24 +211,15 @@ function handleRightClick(e) {
 }
 
 function handleResize() {
-  let dpi = window.devicePixelRatio;
-  let style_height = +getComputedStyle(canvas)
-    .getPropertyValue("height")
-    .slice(0, -2);
-
-  let style_width = +getComputedStyle(canvas)
-    .getPropertyValue("width")
-    .slice(0, -2);
-
-  canvas.setAttribute("height", style_height * dpi);
-  canvas.setAttribute("width", style_width * dpi);
-
-  canvas.height = document.body.clientHeight;
-  canvas.width = document.body.clientWidth;
-
-  rect = canvas.getBoundingClientRect();
-
-  draw();
+  const ratio = Math.ceil(window.devicePixelRatio);
+  var width = document.body.clientWidth;
+  var height = document.body.clientHeight;
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  canvas.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
+  CP.length > 2 && draw();
 }
 
 function drawRandomBezier() {
@@ -261,26 +253,12 @@ window.addEventListener(
 
     if (canvas && canvas.getContext) {
       ctx = canvas.getContext("2d");
-      canvas.height = document.body.clientHeight;
-      canvas.width = document.body.clientWidth;
+
       rect = canvas.getBoundingClientRect();
+      handleResize();
 
-      let dpi = window.devicePixelRatio;
-
-      () => {
-        let style_height = +getComputedStyle(canvas)
-          .getPropertyValue("height")
-          .slice(0, -2);
-
-        let style_width = +getComputedStyle(canvas)
-          .getPropertyValue("width")
-          .slice(0, -2);
-
-        canvas.setAttribute("height", style_height * dpi);
-        canvas.setAttribute("width", style_width * dpi);
-      };
       // interval = setInterval(drawRandomBezier, speed);
-      autoplay = document.getElementById("autoplay").value;
+
       if (autoplay) {
         interval = setInterval(drawRandomBezier, speed);
       }
