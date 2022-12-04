@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap");
+
+:root {
+  /* colors */
+  --color-success: #66f3a8;
+  --color-error: #fa7070;
+  --font-family: "Inter", sans-serif;
+  --color-accent-hover: #ff00fb;
+  --color-accent: #e8ff9d;
+  --color-accent-dark: #6e60fb;
+  /* colors  - grey*/
+  --color-grey-lightest: #f5f7fa;
+  --color-grey-lighter: #f0f1f2;
+  --color-grey-light: #e0e1e2;
+  --color-grey: #8f8f90;
+  --color-grey-dark: #2d2f31;
+  --color-grey-darker: #202224;
+  --color-grey-darkest: #161618;
+}
+body,
+html {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-weight: 500;
+}
+body {
+  background: white;
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-grey-darkest);
+}
+input {
+  accent-color: #daff01;
+}
+body.dark {
+  background: var(--color-grey-darkest);
+  background-image: radial-gradient(white 1px, transparent 0);
+  color: white;
+}
+body.dark .container {
+  background: var(--color-grey-darker);
+}
+#beziers {
+  box-shadow: 0 0 100px -50px rgb(0, 0, 0), inset 0 0 0 1px black;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  backdrop-filter: blur(2px);
+}
+
+h1 {
+  padding: 25px;
+  font-size: 126px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.container {
+  z-index: 10;
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  width: fit-content;
+  height: fit-content;
+  background-color: white;
+  position: fixed;
+  max-width: 90vw;
+  bottom: 15px;
+
+  box-shadow: inset 0 0 100px -50px rgba(255, 255, 255, 0.212),
+    0 0 25px -25px rgb(255, 255, 255);
+  border: black 1pt solid;
+  border-radius: 250px;
+  backdrop-filter: blur(2px);
+  flex-wrap: wrap;
+}
+
+/* .switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 34px;
+  border-radius: 500px;
+  background: black;
+  margin: 5px;
+} */
+
+input:checked .switch {
+  background: yellow;
+}
+
+button {
+  padding: 10px 25px;
+  background-color: transparent;
+  border: none;
+}
