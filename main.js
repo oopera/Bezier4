@@ -21,6 +21,7 @@ var interval;
 var autoplay;
 var guides = true;
 var aop = 25;
+
 function deCasteljau(points, d = 1) {
   const floor = [],
     ceil = [];
@@ -191,7 +192,6 @@ function handleMove(e) {
       draw();
     }
   } else {
-    console.log(CP[findPoint(newPoint)]);
     hasMoved = 50;
     selectedPoint = {
       x: e.clientX - rect.left,
@@ -203,31 +203,30 @@ function handleMove(e) {
 }
 
 function handleRightClick(e) {
-  e.preventDefault();
+  // e.preventDefault();
   if (CP.length > 0) {
     deletePoint(e);
   }
 }
 
 function handleResize() {
-  if (canvas.width != document.body.clientWidth) {
-    () => {
-      let style_height = +getComputedStyle(canvas)
-        .getPropertyValue("height")
-        .slice(0, -2);
+  let dpi = window.devicePixelRatio;
+  let style_height = +getComputedStyle(canvas)
+    .getPropertyValue("height")
+    .slice(0, -2);
 
-      let style_width = +getComputedStyle(canvas)
-        .getPropertyValue("width")
-        .slice(0, -2);
+  let style_width = +getComputedStyle(canvas)
+    .getPropertyValue("width")
+    .slice(0, -2);
 
-      canvas.setAttribute("height", style_height * dpi);
-      canvas.setAttribute("width", style_width * dpi);
-    };
-    canvas.height = document.body.clientHeight;
-    canvas.width = document.body.clientWidth;
+  canvas.setAttribute("height", style_height * dpi);
+  canvas.setAttribute("width", style_width * dpi);
 
-    rect = canvas.getBoundingClientRect();
-  }
+  canvas.height = document.body.clientHeight;
+  canvas.width = document.body.clientWidth;
+
+  rect = canvas.getBoundingClientRect();
+
   draw();
 }
 
@@ -244,12 +243,6 @@ function drawRandomBezier() {
     CP.length = aop;
   }
 
-  // if (t >= 0.99) {
-  //   t = 0;
-  // }
-
-  // t = 0.01;
-
   var marginY = CP[CP.length - 1].y + 150 > canvas.height ? -150 : 150;
   var marginX = CP[CP.length - 1].x + 150 > canvas.width ? -150 : 150;
 
@@ -265,7 +258,7 @@ window.addEventListener(
   "load",
   () => {
     canvas = document.getElementById("beziers");
-    console.log(t);
+
     if (canvas && canvas.getContext) {
       ctx = canvas.getContext("2d");
       canvas.height = document.body.clientHeight;
@@ -365,14 +358,14 @@ window.addEventListener(
         draw();
       });
 
-      document.getElementById("dark").addEventListener("input", (e) => {
-        if (e.target.checked) {
-          document.body.classList.add("dark");
-        } else {
-          document.body.classList.remove("dark");
-        }
-        draw();
-      });
+      // document.getElementById("dark").addEventListener("input", (e) => {
+      //   if (e.target.checked) {
+      //     document.body.classList.add("dark");
+      //   } else {
+      //     document.body.classList.remove("dark");
+      //   }
+      //   draw();
+      // });
     }
   },
   false
