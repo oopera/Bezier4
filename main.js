@@ -19,7 +19,7 @@ var speed = 5;
 var interval;
 var autoplay;
 var guides = true;
-
+var aop = 25;
 function deCasteljau(points, d = 1) {
   const floor = [],
     ceil = [];
@@ -225,8 +225,9 @@ function drawRandomBezier() {
     });
     return;
   }
-  if (CP.length > 50) {
+  if (CP.length > aop) {
     CP.shift();
+    CP.length = aop;
   }
 
   // if (t >= 0.99) {
@@ -284,6 +285,11 @@ window.addEventListener(
           interval = setInterval(drawRandomBezier, speed);
           draw();
         }
+      });
+
+      document.getElementById("points").addEventListener("input", (e) => {
+        aop = e.target.value;
+        draw();
       });
 
       document.getElementById("guides").addEventListener("input", (e) => {
