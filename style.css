@@ -27,7 +27,7 @@ html {
 }
 body {
   background: white;
-  background-image: radial-gradient(black 1px, transparent 0);
+  background-image: radial-gradient(rgb(169, 169, 169) 1px, transparent 0);
   background-size: 40px 40px;
   background-position: -19px -19px;
   display: flex;
@@ -73,6 +73,9 @@ h1 {
 input[type="range"] {
   width: 50%;
 }
+svg {
+  width: 15px;
+}
 
 .container {
   z-index: 10;
@@ -87,20 +90,18 @@ input[type="range"] {
   font-size: 10pt;
   position: fixed;
   max-width: 90vw;
-  bottom: 15px;
-  left: 15px;
-  box-shadow: inset 0 0 100px -50px rgba(255, 255, 255, 1),
-    0 0 25px -25px rgb(255, 255, 255);
+  bottom: 0px;
+  left: 0px;
+  box-shadow: inset 0 0 0 0.5px black;
 
-  border: black 1pt solid;
   backdrop-filter: blur(3px);
   flex-wrap: wrap;
 }
 
 button {
-  padding: 10px 25px;
   background-color: transparent;
   border: none;
   width: 100%;
-  border: 1pt solid black;
+  display: flex;
+  padding: 0;
 }

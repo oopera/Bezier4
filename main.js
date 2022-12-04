@@ -211,8 +211,21 @@ function handleRightClick(e) {
 
 function handleResize() {
   if (canvas.width != document.body.clientWidth) {
+    () => {
+      let style_height = +getComputedStyle(canvas)
+        .getPropertyValue("height")
+        .slice(0, -2);
+
+      let style_width = +getComputedStyle(canvas)
+        .getPropertyValue("width")
+        .slice(0, -2);
+
+      canvas.setAttribute("height", style_height * dpi);
+      canvas.setAttribute("width", style_width * dpi);
+    };
     canvas.height = document.body.clientHeight;
     canvas.width = document.body.clientWidth;
+
     rect = canvas.getBoundingClientRect();
   }
   draw();
@@ -258,6 +271,21 @@ window.addEventListener(
       canvas.height = document.body.clientHeight;
       canvas.width = document.body.clientWidth;
       rect = canvas.getBoundingClientRect();
+
+      let dpi = window.devicePixelRatio;
+
+      () => {
+        let style_height = +getComputedStyle(canvas)
+          .getPropertyValue("height")
+          .slice(0, -2);
+
+        let style_width = +getComputedStyle(canvas)
+          .getPropertyValue("width")
+          .slice(0, -2);
+
+        canvas.setAttribute("height", style_height * dpi);
+        canvas.setAttribute("width", style_width * dpi);
+      };
       // interval = setInterval(drawRandomBezier, speed);
       autoplay = document.getElementById("autoplay").value;
       if (autoplay) {
