@@ -10,7 +10,7 @@ var point_color = "transparent";
 var const_color = "#2b2b2b";
 ("#daff01");
 var depth = 15;
-var t = 0.05;
+var t = document.getElementById("range").value;
 var mouseDown = false;
 var hasMoved = 0;
 var rect;
@@ -225,10 +225,16 @@ function drawRandomBezier() {
     });
     return;
   }
-  if (CP.length > 75) {
+  if (CP.length > 50) {
     CP.shift();
   }
-  t += 0.01;
+
+  // if (t >= 0.99) {
+  //   t = 0;
+  // }
+
+  // t = 0.01;
+
   var marginY = CP[CP.length - 1].y + 150 > canvas.height ? -150 : 150;
   var marginX = CP[CP.length - 1].x + 150 > canvas.width ? -150 : 150;
 
@@ -244,7 +250,7 @@ window.addEventListener(
   "load",
   () => {
     canvas = document.getElementById("beziers");
-
+    console.log(t);
     if (canvas && canvas.getContext) {
       ctx = canvas.getContext("2d");
       canvas.height = document.body.clientHeight * 0.8;
@@ -268,6 +274,7 @@ window.addEventListener(
       window.addEventListener("resize", handleResize, false);
       document.getElementById("range").addEventListener("input", (e) => {
         t = e.target.value;
+        console.log(t);
         draw();
       });
       document.getElementById("speed").addEventListener("input", (e) => {
