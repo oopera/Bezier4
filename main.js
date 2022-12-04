@@ -10,7 +10,7 @@ var point_color = "transparent";
 var const_color = "#2b2b2b";
 ("#daff01");
 var depth = 15;
-var t = document.getElementById("range").value;
+var t = Math.random();
 var mouseDown = false;
 var hasMoved = 0;
 var rect;
