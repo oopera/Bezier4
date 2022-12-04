@@ -48,13 +48,12 @@ body.dark {
 body.dark .container {
   background: var(--color-grey-darker);
 }
-/* #beziers {
-  box-shadow: 0 0 100px -50px rgb(0, 0, 0), inset 0 0 0 1px black;
-  margin: 0;
-  padding: 0;
+#beziers {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   position: absolute;
-  backdrop-filter: blur(2px);
-} */
+}
 
 h1 {
   padding: 25px;
