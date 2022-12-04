@@ -10,38 +10,60 @@
     <h1>Bezier4</h1>
 
     <span class="container">
-      <label>b(t)</label>
-      <input
-        type="range"
-        id="range"
-        min="0.00"
-        max="1"
-        step="0.01"
-        value="0.01"
-      />
-      <label>speed</label>
-      <input type="range" id="speed" min="0" max="250" step="0.01" value="65" />
-      <label>Points</label>
-      <input type="range" id="points" min="5" max="250" step="1" value="25" />
-      <label>Guides</label>
+      <div class="flex">
+        <label>b(t)</label>
+        <input
+          type="range"
+          id="range"
+          min="0.00"
+          max="1"
+          step="0.01"
+          value="0.01"
+        />
+      </div>
+      <div class="flex">
+        <label>speed</label>
+        <input
+          type="range"
+          id="speed"
+          min="0"
+          max="250"
+          step="0.01"
+          value="65"
+        />
+      </div>
+      <div class="flex">
+        <label>Points</label>
+        <input type="range" id="points" min="5" max="250" step="1" value="25" />
+      </div>
+      <div class="flex">
+        <label>Guides</label>
+        <input
+          type="checkbox"
+          id="guides"
+          name="guides"
+          value="false"
+          checked
+        />
+      </div>
+      <div class="flex">
+        <label>autoplay</label>
 
-      <input type="checkbox" id="guides" name="guides" value="false" checked />
+        <input type="checkbox" id="autoplay" name="autoplay" checked />
+      </div>
+      <div class="flex">
+        <label>handles</label>
 
-      <label>autoplay</label>
+        <input type="checkbox" id="handles" name="handles" />
+      </div>
+      <div class="flex">
+        <label>line</label>
 
-      <input type="checkbox" id="autoplay" name="autoplay" checked />
+        <input type="checkbox" id="line" name="line" />
+      </div>
+      <!-- <label>dark</label>
 
-      <label>handles</label>
-
-      <input type="checkbox" id="handles" name="handles" />
-
-      <label>line</label>
-
-      <input type="checkbox" id="line" name="line" />
-
-      <label>dark</label>
-
-      <input type="checkbox" id="dark" name="dark" />
+      <input type="checkbox" id="dark" name="dark" /> -->
 
       <button id="reset">reset</button>
     </span>

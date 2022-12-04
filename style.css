@@ -65,26 +65,35 @@ h1 {
   margin: 0;
   z-index: 10;
 }
+.flex {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+input[type="range"] {
+  width: 50%;
+}
 
 .container {
   z-index: 10;
   gap: 15px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   padding: 25px;
   width: fit-content;
   height: fit-content;
-  background-color: white;
+  font-size: 10pt;
   position: fixed;
   max-width: 90vw;
   bottom: 15px;
   left: 15px;
-  box-shadow: inset 0 0 100px -50px rgba(255, 255, 255, 0.212),
+  box-shadow: inset 0 0 100px -50px rgba(255, 255, 255, 1),
     0 0 25px -25px rgb(255, 255, 255);
+
   border: black 1pt solid;
-  border-radius: 250px;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
   flex-wrap: wrap;
 }
 
@@ -92,4 +101,6 @@ button {
   padding: 10px 25px;
   background-color: transparent;
   border: none;
+  width: 100%;
+  border: 1pt solid black;
 }
