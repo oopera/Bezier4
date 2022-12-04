@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <h1>Bezier4</h1>
+
+    <span class="container">
+      <label>b(t)</label>
+      <input
+        type="range"
+        id="range"
+        min="0.05"
+        max=".90"
+        step="0.01"
+        value="0.5"
+      />
+      <label>speed</label>
+      <input
+        type="range"
+        id="speed"
+        min="0"
+        max="250"
+        step="0.01"
+        value="125"
+      />
+      <label>Guides</label>
+
+      <input type="checkbox" id="guides" name="guides" value="false" />
+
+      <label>autoplay</label>
+
+      <input type="checkbox" id="autoplay" name="autoplay" checked />
+
+      <label>handles</label>
+
+      <input type="checkbox" id="handles" name="handles" />
+
+      <label>line</label>
+
+      <input type="checkbox" id="line" name="line" />
+
+      <label>dark</label>
+
+      <input type="checkbox" id="dark" name="dark" />
+
+      <button id="reset">reset</button>
+    </span>
+    <canvas id="beziers">
+      Alternative content in case the browser does not support Canvas.
+    </canvas>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
