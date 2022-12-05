@@ -19,7 +19,7 @@ var selectedPoint = false;
 var speed = document.getElementById("speed").value;
 var autoplay = document.getElementById("autoplay").value;
 var interval;
-
+var handles, lines;
 var guides = true;
 var aop = 25;
 
@@ -95,11 +95,14 @@ function draw(e) {
 
     ctx.lineWidth = line_width;
     ctx.strokeStyle = line_color;
-    drawLine(deCasteljau(CP));
-
+    if (lines) {
+      drawLine(deCasteljau(CP));
+    }
     ctx.lineWidth = line_width / 2;
     ctx.strokeStyle = point_color;
-    drawLine(CP);
+    if (lines) {
+      drawLine(CP);
+    }
     if (guides) {
       const lines = calc(CP);
       ctx.strokeStyle = const_color;
@@ -107,7 +110,9 @@ function draw(e) {
         ctx.strokeStyle = drawLine(line);
       });
     }
-    CP.forEach((i) => drawPoint(i));
+    if (handles) {
+      CP.forEach((i) => drawPoint(i));
+    }
   }
 }
 
@@ -235,6 +240,22 @@ function drawRandomBezier() {
     CP.length = aop;
   }
 
+  // var marginY =
+  //   CP[CP.length - 1].y + 250 > document.body.clientHeight ? -250 : 150;
+  // var marginX =
+  //   CP[CP.length - 1].x + 250 > document.body.clientWidth ? -250 : 150;
+
+  // if (Math.random() > 0.5) {
+  //   var direction = 1;
+  // } else {
+  //   var direction = -1;
+  // }
+
+  // CP.push({
+  //   x: direction * Math.random() * 150 + marginX + CP[CP.length - 1].x / 1.5,
+  //   y: direction * Math.random() * 150 + marginY + CP[CP.length - 1].y / 1.5,
+  // });
+
   var marginY = CP[CP.length - 1].y + 150 > canvas.height ? -150 : 150;
   var marginX = CP[CP.length - 1].x + 150 > canvas.width ? -150 : 150;
 
@@ -303,6 +324,7 @@ window.addEventListener(
       });
 
       document.getElementById("handles").addEventListener("input", (e) => {
+        handles = e.target.checked;
         if (e.target.checked) {
           point_color = "#6758F7";
         } else {
@@ -312,13 +334,10 @@ window.addEventListener(
       });
 
       document.getElementById("line").addEventListener("input", (e) => {
-        if (e.target.checked) {
-          line_color = document.body.classList.contains("dark")
-            ? "#FFFFFF"
-            : "#ff00fb";
-        } else {
-          line_color = "transparent";
-        }
+        lines = e.target.checked;
+
+        line_color = "#ff00fb";
+
         draw();
       });
 
@@ -333,6 +352,7 @@ window.addEventListener(
 
       document.getElementById("reset").addEventListener("click", (e) => {
         CP = [];
+        console.log(CP);
         draw();
       });
 

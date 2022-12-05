@@ -66,13 +66,9 @@ h1 {
   z-index: 10;
   word-break: break-all;
 }
-.flex {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
+
 input[type="range"] {
-  width: 50%;
+  width: 75px;
 }
 svg {
   width: 15px;
@@ -80,17 +76,15 @@ svg {
 
 .container {
   z-index: 10;
-  gap: 15px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 25px;
-  width: fit-content;
+  flex-direction: row;
+  width: 100vw;
+  padding: 0 15px 0 15px;
+  justify-content: space-between;
   height: fit-content;
   font-size: 10pt;
   position: fixed;
-  max-width: 90vw;
+  align-items: center;
   bottom: 0px;
   left: 0px;
   box-shadow: inset 0 0 0 0.5px black;
@@ -98,11 +92,46 @@ svg {
   backdrop-filter: blur(3px);
   flex-wrap: wrap;
 }
+.inner {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
+#reset {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+svg {
+  pointer-events: none;
+}
 button {
   background-color: transparent;
+  display: inline;
+
   border: none;
-  width: 100%;
+
   display: flex;
   padding: 0;
+}
+
+label {
+  padding: 0;
+  margin: 0;
+
+  width: fit-content;
+}
+
+.flex {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
