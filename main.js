@@ -237,22 +237,6 @@ function drawRandomBezier() {
     CP.length = aop;
   }
 
-  // var marginY =
-  //   CP[CP.length - 1].y + 250 > document.body.clientHeight ? -250 : 150;
-  // var marginX =
-  //   CP[CP.length - 1].x + 250 > document.body.clientWidth ? -250 : 150;
-
-  // if (Math.random() > 0.5) {
-  //   var direction = 1;
-  // } else {
-  //   var direction = -1;
-  // }
-
-  // CP.push({
-  //   x: direction * Math.random() * 150 + marginX + CP[CP.length - 1].x / 1.5,
-  //   y: direction * Math.random() * 150 + marginY + CP[CP.length - 1].y / 1.5,
-  // });
-
   var marginY = CP[CP.length - 1].y + 150 > canvas.height ? -150 : 150;
   var marginX = CP[CP.length - 1].x + 150 > canvas.width ? -150 : 150;
 
@@ -285,8 +269,6 @@ window.addEventListener(
 
       rect = canvas.getBoundingClientRect();
       handleResize();
-
-      // interval = setInterval(drawRandomBezier, speed);
 
       if (autoplay) {
         interval = setInterval(drawRandomBezier, speed);
@@ -351,15 +333,6 @@ window.addEventListener(
 
         draw();
       });
-
-      // document.getElementById("dark").addEventListener("input", (e) => {
-      //   if (e.target.checked) {
-      //     document.body.classList.add("dark");
-      //   } else {
-      //     document.body.classList.remove("dark");
-      //   }
-      //   draw();
-      // });
     }
   },
   false
