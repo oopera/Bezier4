@@ -12,16 +12,17 @@ var const_color = "#2b2b2b";
 var depth = 15;
 var t = Math.random();
 document.getElementById("range").value = t;
+var aop = Math.ceil(Math.random() * 150);
+document.getElementById("points").value = aop;
+var speed = 25;
+document.getElementById("speed").value = 150 - speed;
+
+var autoplay = document.getElementById("autoplay").value;
 var mouseDown = false;
 var hasMoved = 0;
-var rect;
 var selectedPoint = false;
-var speed = document.getElementById("speed").value;
-var autoplay = document.getElementById("autoplay").value;
-var interval;
-var handles, lines;
+var handles, lines, interval, rect;
 var guides = true;
-var aop = 25;
 
 function deCasteljau(points, d = 1) {
   const floor = [],
@@ -76,8 +77,8 @@ function calc(points, bool) {
 
 function deletePoint(e) {
   const newPoint = {
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top,
+    x: e.clientX,
+    y: e.clientY,
   };
   if (findPoint(newPoint)) {
     CP.splice(findPoint(newPoint), 1);
@@ -88,7 +89,7 @@ function deletePoint(e) {
 }
 
 function draw(e) {
-  e && (CP[CP.length] = { x: e.clientX - rect.left, y: e.clientY - rect.top });
+  e && (CP[CP.length] = { x: e.clientX, y: e.clientY });
   if (ctx) {
     ctx.fillStyle = back_color;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -301,7 +302,7 @@ window.addEventListener(
       });
       document.getElementById("speed").addEventListener("input", (e) => {
         if (autoplay) {
-          speed = e.target.value;
+          speed = 150 - e.target.value;
           clearInterval(interval);
           interval = setInterval(drawRandomBezier, speed);
           draw();
