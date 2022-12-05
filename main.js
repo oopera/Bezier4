@@ -185,23 +185,23 @@ function handleMove(e) {
   hasMoved++;
 
   const newPoint = {
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top,
+    x: e.clientX,
+    y: e.clientY,
   };
   var index = findPoint(newPoint) || findPoint(newPoint) === 0;
 
   if (selectedPoint === false) {
     if (findPoint(newPoint) || findPoint(newPoint) === 0) {
       selectedPoint = CP[findPoint(newPoint)];
-      selectedPoint.x = e.clientX - rect.left;
-      selectedPoint.y = e.clientY - rect.top;
+      selectedPoint.x = e.clientX;
+      selectedPoint.y = e.clientY;
       draw();
     }
   } else {
     hasMoved = 50;
     selectedPoint = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+      x: e.clientX,
+      y: e.clientY,
     };
     CP[index] = selectedPoint;
     draw();
