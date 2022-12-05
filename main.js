@@ -5,19 +5,15 @@ var CP = Array(0);
 var line_width = 1;
 var point_size = 4;
 var back_color = "transparent";
-var line_color = "transparent";
-var point_color = "transparent";
+var line_color = "#ff00fb";
+var point_color = "#6758F7";
 var const_color = "#2b2b2b";
 ("#daff01");
 var depth = 15;
-var t = Math.random();
-document.getElementById("range").value = t;
-var aop = Math.ceil(Math.random() * 150);
-document.getElementById("points").value = aop;
-var speed = 25;
-document.getElementById("speed").value = 150 - speed;
-
-var autoplay = document.getElementById("autoplay").value;
+var t;
+var aop;
+var speed;
+var autoplay;
 var mouseDown = false;
 var hasMoved = 0;
 var selectedPoint = false;
@@ -268,9 +264,20 @@ function drawRandomBezier() {
   draw();
 }
 
+function setValues() {
+  t = Math.random();
+  document.getElementById("range").value = t;
+  aop = Math.ceil(Math.random() * 150);
+  document.getElementById("points").value = aop;
+  speed = 25;
+  document.getElementById("speed").value = 150 - speed;
+  autoplay = document.getElementById("autoplay").value;
+}
+
 window.addEventListener(
   "load",
   () => {
+    setValues();
     canvas = document.getElementById("beziers");
 
     if (canvas && canvas.getContext) {
@@ -316,29 +323,16 @@ window.addEventListener(
 
       document.getElementById("guides").addEventListener("input", (e) => {
         guides = e.target.checked;
-        if (e.target.checked) {
-          const_color = "#2b2b2b";
-        } else {
-          const_color = "transparent";
-        }
         draw();
       });
 
       document.getElementById("handles").addEventListener("input", (e) => {
         handles = e.target.checked;
-        if (e.target.checked) {
-          point_color = "#6758F7";
-        } else {
-          point_color = "transparent";
-        }
         draw();
       });
 
       document.getElementById("line").addEventListener("input", (e) => {
         lines = e.target.checked;
-
-        line_color = "#ff00fb";
-
         draw();
       });
 
@@ -353,7 +347,8 @@ window.addEventListener(
 
       document.getElementById("reset").addEventListener("click", (e) => {
         CP = [];
-        console.log(CP);
+        setValues();
+
         draw();
       });
 
