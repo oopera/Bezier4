@@ -16,6 +16,9 @@
   --color-grey-dark: #2d2f31;
   --color-grey-darker: #202224;
   --color-grey-darkest: #161618;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 body,
 html {
@@ -97,8 +100,8 @@ svg {
 
 .container {
   z-index: 10;
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+
   width: 100vw;
   padding: 0 15px 0 15px;
   justify-content: space-between;
@@ -114,46 +117,55 @@ svg {
   flex-wrap: wrap;
 }
 .inner {
+  display: table;
   width: fit-content;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: fit-content;
 }
 
-#reset {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
 svg {
   pointer-events: none;
 }
 button {
   background-color: transparent;
-  display: inline;
-
   border: none;
-
-  display: flex;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+  display: flx;
   padding: 0;
 }
 
 label {
   padding: 0;
   margin: 0;
-
   width: fit-content;
 }
+.divider {
+  height: 100%;
+  width: 1px;
+  display: flex;
+  background-color: var(--color-grey-dark);
 
+  z-index: 10;
+}
 .flex {
   padding: 0;
   margin: 0;
   display: flex;
-
   flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.flex-range {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }

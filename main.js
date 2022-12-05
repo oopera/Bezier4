@@ -40,6 +40,7 @@ function deCasteljau(points, d = 1) {
     points[0] !== CP[0] &&
     points[points.length - 1] !== CP[CP.length - 1]
   ) {
+    console.log(Math.max(range.x, range.y));
     return [points[0], points[points.length - 1]];
   }
 
@@ -67,7 +68,6 @@ function calc(points, bool) {
       y: (1 - varT) * points[i].y + varT * points[i + 1].y,
     };
   });
-
   return [points].concat(calc(post, bool));
 }
 
@@ -97,14 +97,14 @@ function draw(e) {
     }
     ctx.lineWidth = line_width / 2;
     ctx.strokeStyle = point_color;
-    if (lines) {
-      drawLine(CP);
-    }
+
     if (guides) {
       const lines = calc(CP);
+
       ctx.strokeStyle = const_color;
+      drawLine(CP);
       lines.slice(1, CP.length - 1).forEach((line) => {
-        ctx.strokeStyle = drawLine(line);
+        drawLine(line);
       });
     }
     if (handles) {
@@ -147,6 +147,14 @@ function findPoint(point) {
   return bool;
 }
 
+function setListener() {
+  if (mouseDown) {
+    canvas.addEventListener("mousemove", handleMove);
+  } else {
+    canvas.removeEventListener("mousemove", handleMove);
+  }
+}
+
 function handleMouseDown(e) {
   if (e.which === 3) {
     handleRightClick(e);
@@ -154,14 +162,6 @@ function handleMouseDown(e) {
   }
   mouseDown = true;
   setListener();
-}
-
-function setListener() {
-  if (mouseDown) {
-    canvas.addEventListener("mousemove", handleMove);
-  } else {
-    canvas.removeEventListener("mousemove", handleMove);
-  }
 }
 
 function handleMouseup(e) {
@@ -185,8 +185,8 @@ function handleMove(e) {
     x: e.clientX,
     y: e.clientY,
   };
-  var index = findPoint(newPoint) || findPoint(newPoint) === 0;
-
+  var index = findPoint(newPoint);
+  console.log(index);
   if (selectedPoint === false) {
     if (findPoint(newPoint) || findPoint(newPoint) === 0) {
       selectedPoint = CP[findPoint(newPoint)];
@@ -201,6 +201,8 @@ function handleMove(e) {
       y: e.clientY,
     };
     CP[index] = selectedPoint;
+    console.log(CP);
+    console.log(selectedPoint);
     draw();
   }
 }
