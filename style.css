@@ -101,18 +101,19 @@ svg {
 .container {
   z-index: 10;
   display: inline-flex;
-
+  box-shadow: 0 0 40px -25px black,
+    inset 0 0 80px -20px rgba(255, 255, 255, 0.558);
   width: 100vw;
   padding: 0 15px 0 15px;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: fit-content;
   font-size: 10pt;
   position: fixed;
   align-items: center;
   bottom: 0px;
   left: 0px;
-  box-shadow: inset 0 0 0 0.5px black;
 
+  border-top: 1px solid black;
   backdrop-filter: blur(3px);
   flex-wrap: wrap;
 }
@@ -168,4 +169,11 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+#reset {
+  padding-right: 5px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 }

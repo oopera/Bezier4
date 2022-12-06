@@ -19,7 +19,7 @@ var hasMoved = 0;
 var selectedPoint = false;
 var handles, lines, interval, rect;
 var guides = true;
-
+var tCasteljau = 0.5;
 function deCasteljau(points, d = 1) {
   const floor = [],
     ceil = [];
@@ -40,35 +40,42 @@ function deCasteljau(points, d = 1) {
     points[0] !== CP[0] &&
     points[points.length - 1] !== CP[CP.length - 1]
   ) {
-    console.log(Math.max(range.x, range.y));
     return [points[0], points[points.length - 1]];
   }
 
-  calc(points, true).forEach((i) => {
-    floor.push(i[0]);
-    ceil.push(i[i.length - 1]);
-  });
+  // calc(points).forEach((i) => {
+  //   floor.push(i[0]);
+  //   ceil.push(i[i.length - 1]);
+  // });
 
-  return deCasteljau(floor, ++d).concat(
-    deCasteljau(ceil, ++d).reverse().slice(1)
-  );
+  // return deCasteljau(floor, ++d).concat(
+  //   deCasteljau(ceil, ++d).reverse().slice(1)
+  // );
+
+  var pointz = [];
+  for (var i = 0; i < 1; i += 0.005) {
+    pointz[pointz.length] = calc(points, i).reverse().shift()[0];
+    console.log(pointz);
+  }
+
+  return pointz.slice(1);
 }
 
-function calc(points, bool) {
+function calc(points, varT = false) {
   if (points.length < 2) {
     return [points];
   }
   var varT;
-  !bool ? (varT = t) : (varT = 0.5);
-  var post = [...Array(points.length - 1)];
+  varT ? varT : (varT = 0.5);
+  var newPoints = [...Array(points.length - 1)];
 
-  post.forEach((_, i) => {
-    post[i] = {
-      x: (1 - varT) * points[i].x + varT * points[i + 1].x,
-      y: (1 - varT) * points[i].y + varT * points[i + 1].y,
+  newPoints.forEach((_, i) => {
+    newPoints[i] = {
+      x: varT * points[i].x + (1 - varT) * points[i + 1].x,
+      y: varT * points[i].y + (1 - varT) * points[i + 1].y,
     };
   });
-  return [points].concat(calc(post, bool));
+  return [points].concat(calc(newPoints, varT));
 }
 
 function deletePoint(e) {
@@ -99,11 +106,11 @@ function draw(e) {
     ctx.strokeStyle = point_color;
 
     if (guides) {
-      const lines = calc(CP);
+      const linesz = calc(CP, t);
 
       ctx.strokeStyle = const_color;
       drawLine(CP);
-      lines.slice(1, CP.length - 1).forEach((line) => {
+      linesz.slice(1, CP.length - 1).forEach((line) => {
         drawLine(line);
       });
     }
@@ -125,11 +132,15 @@ function drawLine(points) {
 
 function drawPoint(P) {
   ctx.fillStyle = point_color;
+  var divisor = 1;
+  if (P === selectedPoint) {
+    divisor = 1 / 2;
+  }
   ctx.fillRect(
     P.x - point_size / 2,
     P.y - point_size / 2,
-    point_size,
-    point_size
+    point_size / divisor,
+    point_size / divisor
   );
 }
 
@@ -178,7 +189,6 @@ function handleMouseup(e) {
 }
 
 function handleMove(e) {
-  e.preventDefault();
   hasMoved++;
 
   const newPoint = {
@@ -186,7 +196,6 @@ function handleMove(e) {
     y: e.clientY,
   };
   var index = findPoint(newPoint);
-  console.log(index);
   if (selectedPoint === false) {
     if (findPoint(newPoint) || findPoint(newPoint) === 0) {
       selectedPoint = CP[findPoint(newPoint)];
@@ -201,14 +210,12 @@ function handleMove(e) {
       y: e.clientY,
     };
     CP[index] = selectedPoint;
-    console.log(CP);
-    console.log(selectedPoint);
+
     draw();
   }
 }
 
 function handleRightClick(e) {
-  // e.preventDefault();
   if (CP.length > 0) {
     deletePoint(e);
   }
@@ -257,7 +264,7 @@ function setValues() {
   document.getElementById("points").value = aop;
   speed = 25;
   document.getElementById("speed").value = 150 - speed;
-  autoplay = document.getElementById("autoplay").value;
+  autoplay = document.getElementById("autoplay").checked;
 }
 
 window.addEventListener(
@@ -286,11 +293,12 @@ window.addEventListener(
       });
 
       window.addEventListener("resize", handleResize, false);
+
       document.getElementById("range").addEventListener("input", (e) => {
         t = e.target.value;
-        console.log(t);
         draw();
       });
+
       document.getElementById("speed").addEventListener("input", (e) => {
         if (autoplay) {
           speed = 150 - e.target.value;
