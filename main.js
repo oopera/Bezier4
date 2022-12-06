@@ -20,7 +20,7 @@ var selectedPoint = false;
 var handles, lines, interval, rect;
 var guides = true;
 var tCasteljau = 0.5;
-function deCasteljau(points, d = 1) {
+function deCasteljau(points, d = 1, varT = 0.5) {
   const floor = [],
     ceil = [];
 
@@ -43,22 +43,21 @@ function deCasteljau(points, d = 1) {
     return [points[0], points[points.length - 1]];
   }
 
-  // calc(points).forEach((i) => {
-  //   floor.push(i[0]);
-  //   ceil.push(i[i.length - 1]);
-  // });
+  calc(points).forEach((i) => {
+    floor.push(i[0]);
+    ceil.push(i[i.length - 1]);
+  });
 
-  // return deCasteljau(floor, ++d).concat(
-  //   deCasteljau(ceil, ++d).reverse().slice(1)
-  // );
+  return deCasteljau(floor, ++d).concat(
+    deCasteljau(ceil, ++d).reverse().slice(1)
+  );
 
-  var pointz = [];
-  for (var i = 0; i < 1; i += 0.005) {
-    pointz[pointz.length] = calc(points, i).reverse().shift()[0];
-    console.log(pointz);
-  }
+  // var pointz = [];
+  // for (var i = 0; i < 1; i += 0.003) {
+  //   pointz[pointz.length] = calc(points, i).reverse().shift()[0];
+  // }
 
-  return pointz.slice(1);
+  // return pointz.slice(1);
 }
 
 function calc(points, varT = false) {
@@ -103,12 +102,11 @@ function draw(e) {
       drawLine(deCasteljau(CP));
     }
     ctx.lineWidth = line_width / 2;
-    ctx.strokeStyle = point_color;
+    ctx.strokeStyle = const_color;
 
     if (guides) {
       const linesz = calc(CP, t);
 
-      ctx.strokeStyle = const_color;
       drawLine(CP);
       linesz.slice(1, CP.length - 1).forEach((line) => {
         drawLine(line);
@@ -327,6 +325,20 @@ window.addEventListener(
         lines = e.target.checked;
         draw();
       });
+
+      document.body.onkeyup = function (e) {
+        if (e.key == " " || e.code == "Space" || e.keyCode == 32) {
+          console.log(document.getElementById("autoplay").checked);
+          document.getElementById("autoplay").checked =
+            !document.getElementById("autoplay").checked;
+          autoplay = document.getElementById("autoplay").checked;
+          clearInterval(interval);
+          if (autoplay) {
+            interval = setInterval(drawRandomBezier, speed);
+            draw();
+          }
+        }
+      };
 
       document.getElementById("autoplay").addEventListener("input", (e) => {
         autoplay = e.target.checked;
