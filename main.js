@@ -1,71 +1,48 @@
 import "./style.css";
 
-var canvas, ctx;
+var canvas, ctx, rect;
 var CP = Array(0);
 var line_width = 1;
 var point_size = 4;
 var back_color = "transparent";
-var line_color = "#ff00fb";
+var line_color = " #6e60fb";
 var point_color = "#6758F7";
 var const_color = "#2b2b2b";
 ("#daff01");
+var handles, lines, interval, autoplay, speed, aop, t;
 var depth = 15;
-var t;
-var aop;
-var speed;
-var autoplay;
 var mouseDown = false;
 var hasMoved = 0;
 var selectedPoint = false;
-var handles, lines, interval, rect;
 var guides = true;
-var tCasteljau = 0.5;
-function deCasteljau(points, d = 1, varT = 0.5) {
-  const floor = [],
-    ceil = [];
+
+function deCasteljau(points, d = 1) {
+  if (points <= 2) {
+    return [points];
+  }
 
   if (depth <= d) {
     return [points[0], points[points.length - 1]];
   }
 
-  const range = {
-    x: Math.abs(
-      Math.floor(points[0].x) - Math.floor(points[points.length - 1].x)
-    ),
-    y: Math.floor(points[0].y) - Math.floor(points[points.length - 1].y),
-  };
-
-  if (
-    Math.max(range.x, range.y) <= 1 &&
-    points[0] !== CP[0] &&
-    points[points.length - 1] !== CP[CP.length - 1]
-  ) {
-    return [points[0], points[points.length - 1]];
-  }
+  const start = [],
+    end = [];
 
   calc(points).forEach((i) => {
-    floor.push(i[0]);
-    ceil.push(i[i.length - 1]);
+    start.push(i[0]);
+    end.push(i[i.length - 1]);
   });
 
-  return deCasteljau(floor, ++d).concat(
-    deCasteljau(ceil, ++d).reverse().slice(1)
-  );
-
-  // var pointz = [];
-  // for (var i = 0; i < 1; i += 0.003) {
-  //   pointz[pointz.length] = calc(points, i).reverse().shift()[0];
-  // }
-
-  // return pointz.slice(1);
+  return deCasteljau(start, ++d).concat(deCasteljau(end, ++d).reverse());
 }
 
 function calc(points, varT = false) {
   if (points.length < 2) {
     return [points];
   }
-  var varT;
+
   varT ? varT : (varT = 0.5);
+
   var newPoints = [...Array(points.length - 1)];
 
   newPoints.forEach((_, i) => {
@@ -95,7 +72,6 @@ function draw(e) {
   if (ctx) {
     ctx.fillStyle = back_color;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     ctx.lineWidth = line_width;
     ctx.strokeStyle = line_color;
     if (lines) {
@@ -103,12 +79,8 @@ function draw(e) {
     }
     ctx.lineWidth = line_width / 2;
     ctx.strokeStyle = const_color;
-
     if (guides) {
-      const linesz = calc(CP, t);
-
-      drawLine(CP);
-      linesz.slice(1, CP.length - 1).forEach((line) => {
+      calc(CP, t).forEach((line) => {
         drawLine(line);
       });
     }
@@ -214,6 +186,7 @@ function handleMove(e) {
 }
 
 function handleRightClick(e) {
+  e.preventDefault();
   if (CP.length > 0) {
     deletePoint(e);
   }
